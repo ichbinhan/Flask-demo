@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
-    <title>Document</title>
+    <title>PM2.5資料</title>
     <link rel="stylesheet" href="../static/css/style.css">
 </head>
 
@@ -38,6 +38,13 @@
             {% endfor %}
         </tbody>
     </table>
+    <script>
+        //每小時自動更新
+        setTimeout(() => {
+            location.reload();
+        }, 36000000);
+
+    </script>
 </body>
 
 </html>
