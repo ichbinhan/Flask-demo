@@ -1,0 +1,40 @@
+.title {
+    text-align: center;
+    font-family: '微軟正黑體', Courier, monospace;
+    font-size: 50px;
+    font-weight: bold;
+}
+
+body {
+    text-align: center;
+    background-color: lemonchiffon;
+}
+
+table {
+    width: 60%;
+    margin: 12px auto;
+    background-color: #d9b2a8;
+    padding: 24px;
+    border-radius: 12px;
+}
+
+.highest,
+.lowest {
+    display: inline-block;
+    width: 50px;
+    margin-bottom: 16px;
+}
+
+.highest {
+    background-color: brown;
+    color: azure;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.lowest {
+    background-color: rgb(74, 132, 182);
+    color: azure;
+    font-weight: bold;
+    font-size: 20px;
+}
