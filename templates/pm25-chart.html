@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PM2.5數據圖</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.3/echarts.min.js"></script>
+</head>
+
+<body>
+    <h1>PM2.5數據圖</h1>
+    <div id="main" style="width: 600px;height:400px;background-color: rgb(233, 241, 238);"></div>
+
+    <script>
+        const myChart = echarts.init(document.getElementById('main'));
+        drawPM25();
+        function drawPM25() {
+            //ajax
+            $.ajax(
+                {
+                    url: "/pm25-json",
+                    type: "GET",
+                    dataType: "json",
+                    success: (result) => {
+                        console.log(result);
+                        // 基于准备好的dom，初始化echarts实例
+                        var myChart = echarts.init(document.getElementById('main'));
+
+                        // 指定图表的配置项和数据
+                        var option = {
+                            title: {
+                                text: result["title"]
+                            },
+                            tooltip: {},
+                            legend: {
+                                data: ['销量']
+                            },
+                            xAxis: {
+                                data: result["xData"]
+                            },
+                            yAxis: {},
+                            series: [
+                                {
+                                    name: 'pm2.5',
+                                    type: 'bar',
+                                    data: result["yData"]
+                                }
+                            ]
+                        };
+
+                        // 使用刚指定的配置项和数据显示图表。
+                        myChart.setOption(option);
+                    },
+                    error: () => {
+                        alert("取得資料失敗!");
+                    }
+                }
+
+            )
+
+        }
+    </script>
+</body>
+
+</html>

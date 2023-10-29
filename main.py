@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request
 from datetime import datetime
 import pandas as pd
+import json
 
 app = Flask(__name__)
 # 資料是寫死固定的，可寫在全域端
@@ -62,6 +63,24 @@ def get_books(id):
 def get_bmi(n, w, h):
     bmi = round(eval(w) / (eval(h) / 100) ** 2, 2)
     return {"name": n, "weight": w, "height": h, "bmi": bmi}
+
+
+@app.route("/pm25-chart")
+def pm25_chart():
+    return render_template("pm25-chart.html")
+
+
+@app.route("/pm25-json")
+def get_pm25_json():
+    url = "https://data.moenv.gov.tw/api/v2/aqx_p_02?api_key=e8dd42e6-9b8b-43f8-991e-b3dee723a52d&limit=1000&sort=datacreationdate%20desc&format=CSV"
+    df = pd.read_csv(url).dropna()
+
+    json_data = {
+        "title": "PM2.5數據",
+        "xData": df["site"].tolist(),
+        "yData": df["pm25"].tolist(),
+    }
+    return json.dumps(json_data, ensure_ascii=False)
 
 
 @app.route("/pm25", methods=["GET", "POST"])
